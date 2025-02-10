@@ -4,7 +4,7 @@ export default function Home() {
       <section className="text-center space-y-6">
         <h1 className="text-4xl font-bold sm:text-5xl">Welcome to My Portfolio</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          I'm a passionate developer showcasing my projects, articles, and media content.
+          I&apos;m a passionate developer showcasing my projects, articles, and media content.
         </p>
       </section>
 
