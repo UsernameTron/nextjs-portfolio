@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import Navigation from '@/components/Navigation';
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  variable: "--font-inter",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const montserrat = Montserrat({
   subsets: ["latin"],
+  variable: "--font-montserrat",
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Your Name",
-  description: "Personal portfolio showcasing projects, articles, and media content",
+  title: "No AI Grift | Exposing AI Snake Oil",
+  description: "Dedicated to exposing AI grifts and promoting responsible AI development",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gray-50`}
+        className={`${inter.variable} ${montserrat.variable} font-sans antialiased min-h-screen bg-neutral-950 text-white`}
       >
         <Navigation />
         <main className="pt-16 min-h-screen">
