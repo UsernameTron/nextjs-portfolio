@@ -17,9 +17,9 @@ export async function fetchGitHubRepos(username: string): Promise<GitHubRepo[]> 
       name: repo.name,
       description: repo.description || '',
       url: repo.html_url,
-      stars: repo.stargazers_count,
+      stars: repo.stargazers_count || 0,
       language: repo.language || 'Not specified',
-      updatedAt: repo.updated_at,
+      updatedAt: repo.updated_at || new Date().toISOString(),
     }));
   } catch (error) {
     console.error('Error fetching GitHub repos:', error);
