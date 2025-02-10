@@ -1,3 +1,5 @@
+'use client';
+
 import { MediaItem } from '@/types';
 import ReactPlayer from 'react-player';
 import Image from 'next/image';
@@ -7,15 +9,15 @@ const SAMPLE_MEDIA: MediaItem[] = [
   {
     type: 'image',
     title: 'Sample Project Screenshot',
-    url: '/sample-project.jpg',
+    url: 'https://via.placeholder.com/800x600',
     description: 'A screenshot of one of my recent projects'
   },
   {
     type: 'video',
     title: 'Project Demo',
-    url: 'https://www.youtube.com/watch?v=your-video-id',
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     description: 'A demo of my latest project',
-    thumbnailUrl: '/video-thumbnail.jpg'
+    thumbnailUrl: 'https://via.placeholder.com/800x600'
   }
 ];
 
@@ -38,8 +40,9 @@ export default function Media() {
                 <Image
                   src={item.url}
                   alt={item.title}
-                  fill
-                  className="object-cover"
+                  width={800}
+                  height={600}
+                  className="object-cover w-full h-full"
                 />
               ) : (
                 <ReactPlayer
