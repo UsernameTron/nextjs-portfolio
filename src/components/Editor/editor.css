@@ -1,0 +1,62 @@
+@import 'highlight.js/styles/github-dark.css';
+
+.ProseMirror {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(38, 38, 38);
+  min-height: 200px;
+}
+
+.ProseMirror:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(59, 130, 246);
+}
+
+.ProseMirror > * + * {
+  margin-top: 0.75em;
+}
+
+.ProseMirror ul,
+.ProseMirror ol {
+  padding: 0 1rem;
+}
+
+.ProseMirror code {
+  background-color: rgb(24, 24, 27);
+  color: rgb(244, 244, 245);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
+.ProseMirror pre {
+  background: rgb(24, 24, 27);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+}
+
+.ProseMirror pre code {
+  color: inherit;
+  padding: 0;
+  background: none;
+  font-size: 0.875em;
+}
+
+.ProseMirror img {
+  max-width: 100%;
+  height: auto;
+}
+
+.ProseMirror blockquote {
+  padding-left: 1rem;
+  border-left: 2px solid rgb(82, 82, 91);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.ProseMirror hr {
+  border: none;
+  border-top: 2px solid rgb(82, 82, 91);
+  margin: 2rem 0;
+}
