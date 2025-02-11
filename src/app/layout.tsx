@@ -14,8 +14,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "No AI Grift | Exposing AI Snake Oil",
-  description: "Dedicated to exposing AI grifts and promoting responsible AI development",
+  title: "#PeteSteam | Personal Portfolio",
+  description: "Personal portfolio and media gallery",
 };
 
 export default function RootLayout({

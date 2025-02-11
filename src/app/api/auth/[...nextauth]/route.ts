@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-// Auth disabled for development
+// Temporarily disable auth for development
 export async function GET() {
   return NextResponse.json({ status: 'ok' });
 }

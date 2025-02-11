@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
-import { auth } from '@/lib/auth';
 import slugify from 'slugify';
 
 export async function POST(request: Request) {
   try {
-    const session = await auth();
-    console.log('Session:', session); // Debug log
-    
-    if (!session?.user?.email) {
+    // For development, allow all requests
+    if (process.env.NODE_ENV === 'development') {
+      // Continue with the request
+    } else {
       return NextResponse.json(
         { message: 'Unauthorized - Please sign in' },
         { status: 401 }
@@ -31,16 +30,16 @@ export async function POST(request: Request) {
       );
     }
 
-    // Create a user if they don't exist (temporary solution for development)
-    let user = await prisma.user.findUnique({
-      where: { email: session.user.email },
+    // In development, use a default admin user
+    let user = await prisma.user.findFirst({
+      where: { email: 'admin@local' },
     });
 
     if (!user) {
       user = await prisma.user.create({
         data: {
-          email: session.user.email,
-          name: session.user.name || 'Admin User',
+          email: 'admin@local',
+          name: 'Admin User',
         },
       });
     }

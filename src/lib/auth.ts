@@ -2,11 +2,7 @@ import NextAuth from 'next-auth';
 import type { NextAuthConfig } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-import type { NextAuthConfig } from 'next-auth';
-import type { Session } from 'next-auth';
-import type { JWT } from 'next-auth/jwt';
-
-export const authConfig = {
+const config: NextAuthConfig = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
@@ -14,31 +10,25 @@ export const authConfig = {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' }
       },
-      async authorize(credentials): Promise<any> {
-        // In development, always authorize
+      async authorize(credentials) {
+        if (!credentials?.email) return null;
+        
+        // For development, accept any credentials
         return {
           id: '1',
-          email: 'admin@local',
+          email: credentials.email as string,
           name: 'Admin'
         };
       }
     })
   ],
-  callbacks: {
-    async jwt({ token }: { token: JWT }) {
-      return token;
-    },
-    async session({ session }: { session: Session }) {
-      return session;
-    },
-  },
   pages: {
     signIn: '/auth/signin',
-    error: '/auth/error',
+    error: '/auth/error'
   },
-  secret: process.env.NEXTAUTH_SECRET,
-} satisfies NextAuthConfig;
+  secret: process.env.NEXTAUTH_SECRET
+};
 
-export const { auth, signIn, signOut, handlers } = NextAuth(authConfig);
+const handler = NextAuth(config);
 
-export const { GET, POST } = handlers;
+export { handler as GET, handler as POST };

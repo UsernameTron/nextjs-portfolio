@@ -1,8 +1,9 @@
 'use client';
 
 import { signIn } from 'next-auth/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import Link from 'next/link';
 
 type ValidationErrors = {
@@ -11,9 +12,26 @@ type ValidationErrors = {
 };
 
 export default function SignIn() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-neutral-950">Loading...</div>}>
+      <SignInContent />
+    </Suspense>
+  )
+}
+
+function SignInContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/';
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-neutral-950 py-12 px-4 sm:px-6 lg:px-8">
+      <SignInForm router={router} callbackUrl={callbackUrl} />
+    </div>
+  );
+}
+
+function SignInForm({ router, callbackUrl }: { router: AppRouterInstance; callbackUrl: string }) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
@@ -25,7 +43,7 @@ export default function SignIn() {
   // Clear error when user changes input
   useEffect(() => {
     if (error) setError('');
-  }, [formData]);
+  }, [formData, error]);
 
   const validateForm = (): boolean => {
     const errors: ValidationErrors = {};

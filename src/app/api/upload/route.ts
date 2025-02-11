@@ -1,30 +1,10 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import { join } from 'path';
-import { auth } from '@/lib/auth';
-
-// Ensure uploads directory exists
-const UPLOAD_DIR = join(process.cwd(), 'public', 'uploads');
-try {
-  await mkdir(UPLOAD_DIR, { recursive: true });
-} catch (err) {
-  // Directory already exists
-}
+import { uploadToS3, getSignedImageUrl } from '@/lib/s3';
 
 export async function POST(request: Request) {
-  // No auth check in development
   try {
-    // Configure for larger file uploads
     const formData = await request.formData();
     const files = formData.getAll('files');
-    
-    // Create uploads directory if it doesn't exist
-    const uploadDir = join(process.cwd(), 'public', 'uploads');
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (err) {
-      // Directory already exists
-    }
     
     if (!files || files.length === 0) {
       return NextResponse.json({ error: 'No files uploaded' }, { status: 400 });
@@ -36,31 +16,31 @@ export async function POST(request: Request) {
       if (!(file instanceof File)) continue;
 
       // Validate file type
-      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
+      if (!file.type.startsWith('image/')) {
         continue;
       }
 
-      // Validate file size (50MB)
-      if (file.size > 50 * 1024 * 1024) {
+      // Validate file size (10MB)
+      if (file.size > 10 * 1024 * 1024) {
         continue;
       }
 
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
 
-      // Get file extension from mime type
-      const ext = file.type.split('/')[1];
+      // Create unique filename
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      const filename = file.name.replace(/\.[^/.]+$/, '') + '-' + uniqueSuffix + '.' + ext;
+      const ext = file.type.split('/')[1];
+      const filename = `${file.name.replace(/\.[^/.]+$/, '')}-${uniqueSuffix}.${ext}`;
       
-      // Save to public/uploads directory
-      const uploadDir = join(process.cwd(), 'public', 'uploads');
-      const filePath = join(uploadDir, filename);
-      
-      await writeFile(filePath, buffer);
+      // Upload to S3
+      const key = await uploadToS3(buffer, filename);
+      const url = await getSignedImageUrl(key);
       
       uploadedFiles.push({
-        url: `/uploads/${filename}`,
+        id: uniqueSuffix,
+        url,
+        key,
         type: file.type,
         name: file.name
       });
@@ -73,6 +53,9 @@ export async function POST(request: Request) {
     
   } catch (error) {
     console.error('Error uploading file:', error);
-    return NextResponse.json({ error: 'Error uploading file' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Error uploading file',
+      details: error instanceof Error ? error.message : String(error)
+    }, { status: 500 });
   }
 }

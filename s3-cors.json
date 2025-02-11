@@ -1,0 +1,15 @@
+{
+    "CORSRules": [
+        {
+            "AllowedHeaders": ["*"],
+            "AllowedMethods": ["GET", "PUT", "POST", "DELETE"],
+            "AllowedOrigins": [
+                "http://localhost:3000",
+                "https://airealitycheck.org",
+                "https://media.airealitycheck.org"
+            ],
+            "ExposeHeaders": ["ETag"],
+            "MaxAgeSeconds": 3000
+        }
+    ]
+}

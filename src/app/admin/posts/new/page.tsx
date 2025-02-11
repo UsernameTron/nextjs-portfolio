@@ -1,6 +1,18 @@
 'use client';
 
 import { useState } from 'react';
+
+type PostType = 'TECHNICAL' | 'EDITORIAL';
+type PostStatus = 'DRAFT' | 'PUBLISHED' | 'SCHEDULED';
+
+interface FormData {
+  title: string;
+  content: string;
+  type: PostType;
+  status: PostStatus;
+  scheduledFor: string;
+  bannerImage?: string;
+}
 import RichTextEditor from '@/components/Editor/RichTextEditor';
 import Image from 'next/image';
 import type { FC } from 'react';
@@ -32,7 +44,7 @@ const PostPreview: FC<PostPreviewProps> = ({ content, title, bannerImage }) => (
 const NewPostPage: FC = () => {
   const router = useRouter();
   const [isPreview, setIsPreview] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     status: 'DRAFT' as const,
     scheduledFor: '',
     type: 'TECHNICAL' as const,
@@ -111,7 +123,7 @@ const NewPostPage: FC = () => {
                       type="radio"
                       value="TECHNICAL"
                       checked={formData.type === 'TECHNICAL'}
-                      onChange={(e) => setFormData({ ...formData, type: e.target.value as 'TECHNICAL' | 'EDITORIAL' })}
+                      onChange={() => setFormData({ ...formData, type: 'TECHNICAL' })}
                       className="form-radio h-4 w-4 text-blue-600 border-neutral-600 bg-neutral-800 focus:ring-blue-500"
                     />
                     <span className="ml-2">Technical</span>
@@ -121,7 +133,7 @@ const NewPostPage: FC = () => {
                       type="radio"
                       value="EDITORIAL"
                       checked={formData.type === 'EDITORIAL'}
-                      onChange={(e) => setFormData({ ...formData, type: e.target.value as 'TECHNICAL' | 'EDITORIAL' })}
+                      onChange={() => setFormData({ ...formData, type: 'EDITORIAL' })}
                       className="form-radio h-4 w-4 text-blue-600 border-neutral-600 bg-neutral-800 focus:ring-blue-500"
                     />
                     <span className="ml-2">Editorial</span>
