@@ -13,7 +13,7 @@ interface FormData {
   scheduledFor: string;
   bannerImage?: string;
 }
-import RichTextEditor from '@/components/Editor/RichTextEditor';
+import TextEditor from '@/components/Editor/SimpleEditor';
 import Image from 'next/image';
 import type { FC } from 'react';
 import { useRouter } from 'next/navigation';
@@ -195,7 +195,7 @@ const NewPostPage: FC = () => {
               <div className="space-y-2">
                 <label className="block text-sm font-medium">Content</label>
                 <div className="prose prose-invert max-w-none">
-                  <RichTextEditor
+                  <TextEditor
                     content={formData.content}
                     onChange={(content) => setFormData({ ...formData, content })}
                   />
