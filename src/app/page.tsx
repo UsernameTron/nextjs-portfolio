@@ -63,13 +63,13 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-12">
         <section className="text-center space-y-6">
-          <h1 className="text-4xl font-bold sm:text-6xl tracking-tight">
+          <h1 className="text-4xl font-bold sm:text-6xl tracking-tight text-yellow-400 mb-4">
             ⚡ A Hard Reset
           </h1>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto tracking-wide">
+          <p className="text-lg text-blue-200/80 max-w-2xl mx-auto tracking-wide">
             🔹 Cutting through the noise. Zero fluff. Only what matters.
           </p>
         </section>
@@ -81,16 +81,16 @@ export default function Home() {
               href={platform.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block p-6 bg-neutral-900 rounded-lg border border-neutral-800 hover:border-neutral-700 transition-colors group"
+              className="block p-6 bg-[#1e2936]/90 backdrop-blur-sm rounded-lg border border-gray-700/30 hover:border-gray-600/50 transition-all duration-300 group"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="transform group-hover:scale-110 transition-transform" aria-label={platform.platform} role="img">
+                <div className="transform group-hover:scale-105 transition-transform min-w-[24px]" aria-label={platform.platform} role="img">
                   {platform.icon}
                 </div>
                 <h3 className="text-xl font-semibold" aria-label={platform.title}>{platform.title}</h3>
               </div>
-              <p className="text-gray-400 mb-4" aria-label={platform.description}>{platform.description}</p>
-              <div className="flex items-center text-primary-400 group-hover:text-primary-300 transition-colors">
+              <p className="text-gray-300/80 mb-4 text-sm leading-relaxed" aria-label={platform.description}>{platform.description}</p>
+              <div className="flex items-center text-blue-400 group-hover:text-blue-300 transition-colors text-sm">
                 <span>{platform.action}</span>
                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
