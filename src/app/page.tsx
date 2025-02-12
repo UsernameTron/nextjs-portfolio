@@ -13,6 +13,18 @@ export default function Home() {
       )
     },
     {
+      title: '⚡ The Edge of Innovation',
+      description: "Deep dives into the intersection of automation, human ingenuity, and next gen tech decoding what's real, what's hype, and what's next.",
+      platform: 'Medium',
+      link: 'https://medium.com/@cpeteconnor',
+      action: 'Read on Medium',
+      icon: (
+        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.837v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z"/>
+        </svg>
+      )
+    },
+    {
       title: '🔗 Professional Network',
       description: 'Where insight meets execution. Cutting through the corporate jargon with real strategy, sharp analysis, and conversations that actually matter.',
       platform: 'LinkedIn',
@@ -21,18 +33,6 @@ export default function Home() {
       icon: (
         <svg className="w-6 h-6 text-[#0A66C2]" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-        </svg>
-      )
-    },
-    {
-      title: '⚡ The Edge of Innovation',
-      description: 'Deep dives into the intersection of automation, human ingenuity, and next gen tech decoding what’s real, what’s hype, and what’s next.',
-      platform: 'Medium',
-      link: 'https://medium.com/@cpeteconnor',
-      action: 'Read on Medium',
-      icon: (
-        <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.837v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z"/>
         </svg>
       )
     },
@@ -84,12 +84,12 @@ export default function Home() {
               className="block p-6 bg-neutral-900 rounded-lg border border-neutral-800 hover:border-neutral-700 transition-colors group"
             >
               <div className="flex items-center space-x-3 mb-4">
-                <div className="transform group-hover:scale-110 transition-transform">
+                <div className="transform group-hover:scale-110 transition-transform" aria-label={platform.platform} role="img">
                   {platform.icon}
                 </div>
-                <h3 className="text-xl font-semibold">{platform.title}</h3>
+                <h3 className="text-xl font-semibold" aria-label={platform.title}>{platform.title}</h3>
               </div>
-              <p className="text-gray-400 mb-4">{platform.description}</p>
+              <p className="text-gray-400 mb-4" aria-label={platform.description}>{platform.description}</p>
               <div className="flex items-center text-primary-400 group-hover:text-primary-300 transition-colors">
                 <span>{platform.action}</span>
                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
