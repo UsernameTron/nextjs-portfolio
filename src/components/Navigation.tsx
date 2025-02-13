@@ -78,6 +78,7 @@ const Navigation = () => {
                 {link.icon}
               </a>
             ))}
+          </div>
         </div>
       </div>
     </nav>
