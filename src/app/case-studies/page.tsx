@@ -21,11 +21,7 @@ export default function CaseStudies() {
       description: "Business process optimization using incomplete data sets",
       fileName: "BPO Analysis With Incomplete Data.pdf"
     },
-    {
-      title: "Case Study Summary",
-      description: "Overview of key projects and their impact",
-      fileName: "Case Study Summary.pdf"
-    },
+
     {
       title: "Healthcare Systems Integration",
       description: "Seamless integration of EHR and CRM systems for improved patient care",
