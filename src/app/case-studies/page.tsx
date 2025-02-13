@@ -22,6 +22,11 @@ export default function CaseStudies() {
       fileName: "BPO Analysis With Incomplete Data.pdf"
     },
     {
+      title: "Case Study Summary",
+      description: "Overview of key projects and their impact",
+      fileName: "Case Study Summary.pdf"
+    },
+    {
       title: "Healthcare Systems Integration",
       description: "Seamless integration of EHR and CRM systems for improved patient care",
       fileName: "EHR and CRM Continuity Case Study.pdf"
@@ -59,7 +64,7 @@ export default function CaseStudies() {
           {caseStudies.map((study) => (
             <a
               key={study.title}
-              href={`/case-studies/${study.fileName}`}
+              href={`/case-studies/${encodeURIComponent(study.fileName)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="block p-6 bg-neutral-900 rounded-lg border border-neutral-800 hover:border-neutral-700 transition-colors group"
