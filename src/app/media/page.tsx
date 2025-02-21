@@ -42,8 +42,8 @@ export default function Media() {
           setError('Only image files are allowed');
           return false;
         }
-        if (file.size > 10 * 1024 * 1024) {
-          setError('Files must be smaller than 10MB');
+        if (file.size > 60 * 1024 * 1024) {
+          setError('Files must be smaller than 60MB');
           return false;
         }
         return true;

@@ -1,3 +1,5 @@
+'use client';
+
 interface CaseStudy {
   title: string;
   description: string;
@@ -21,7 +23,6 @@ export default function CaseStudies() {
       description: "Business process optimization using incomplete data sets",
       fileName: "BPO Analysis With Incomplete Data.pdf"
     },
-
     {
       title: "Healthcare Systems Integration",
       description: "Seamless integration of EHR and CRM systems for improved patient care",

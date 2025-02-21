@@ -1,6 +1,14 @@
 import { NextResponse } from 'next/server';
 import { uploadToS3, getSignedImageUrl } from '@/lib/s3';
 
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '60mb'
+    }
+  }
+};
+
 export async function POST(request: Request) {
   try {
     const formData = await request.formData();
@@ -20,8 +28,8 @@ export async function POST(request: Request) {
         continue;
       }
 
-      // Validate file size (10MB)
-      if (file.size > 10 * 1024 * 1024) {
+      // Update size limit to 60MB
+      if (file.size > 60 * 1024 * 1024) {
         continue;
       }
 
