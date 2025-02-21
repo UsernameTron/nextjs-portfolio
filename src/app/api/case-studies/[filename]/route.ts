@@ -2,16 +2,22 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 // Import the Params type from Next.js' internal shared types.
-import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+// import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import type { NextApiRequest, NextApiResponse } from 'next'; // Import Next.js API types
 
 // Define a generic route context which matches Next.js expectations.
 type RouteContext = {
-  params: Record<string, string | string[]>;
+  params: Params;
+};
+
+// Define your own Params type
+type Params = {
+  filename: string; // Define the expected parameter
 };
 
 export async function GET(
-  request: NextRequest,
-  { params }: { params: Params } // Now uses Next.js's built-in Params type.
+  request: NextApiRequest, // Use NextApiRequest
+  { params }: { params: Params } // Use the custom Params type
 ) {
   try {
     // If the dynamic parameter may be an array, extract the first element.
