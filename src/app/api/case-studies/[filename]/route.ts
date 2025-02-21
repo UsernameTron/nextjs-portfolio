@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-export function GET(
+export async function GET(
  request: NextRequest,
  { params }: { params: { filename: string } }
 ) {
