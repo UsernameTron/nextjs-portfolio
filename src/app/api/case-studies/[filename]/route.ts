@@ -3,57 +3,34 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// Next.js route handler with the most basic, canonical form
+// The most basic form of a Next.js route handler for dynamic routes
 export function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: { filename: string } }
 ) {
+  // For debugging - remove in production
+  console.log('Requested filename:', params.filename);
+
   try {
-    // Notice we directly use params.filename - this is the canonical way
-    const filename = params.filename;
-    
-    // Our security whitelist remains the same
-    const allowedFiles = [
-      'Accent Neutralization Case Study.pdf',
-      'Advaced Logistical Reasoning.pdf',
-      'BPO Analysis With Incomplete Data.pdf',
-      'EHR and CRM Continuity Case Study.pdf',
-      'EOS.pdf',
-      'Social Media Predictive Analytics.pdf'
-    ];
+    // Create the file path - keeping it simple and direct
+    const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
 
-    // Check against our whitelist first
-    if (!allowedFiles.includes(filename)) {
-      return NextResponse.json(
-        { error: 'File not found or access denied' },
-        { status: 404 }
-      );
-    }
-
-    const filePath = path.join(process.cwd(), 'public', 'case-studies', filename);
-    
+    // Basic file existence check
     if (!fs.existsSync(filePath)) {
-      return NextResponse.json(
-        { error: 'File not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
 
+    // Read and serve the file
     const fileBuffer = fs.readFileSync(filePath);
     
     return new NextResponse(fileBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="${encodeURIComponent(filename)}"`,
-        'Cache-Control': 'public, max-age=3600',
-        'X-Content-Type-Options': 'nosniff'
+        'Content-Disposition': `inline; filename="${params.filename}"`
       }
     });
+
   } catch (error) {
-    console.error('Error serving case study PDF:', error);
-    return NextResponse.json(
-      { error: 'Failed to read file' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to serve file' }, { status: 500 });
   }
 }
