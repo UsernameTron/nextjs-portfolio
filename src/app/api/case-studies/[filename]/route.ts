@@ -2,18 +2,27 @@ import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
+// Define a generic route context which matches Next.js expectations.
+type RouteContext = {
+  params: Record<string, string | string[]>;
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string | string[] } }
+  { params }: RouteContext
 ) {
   try {
-    const filename = Array.isArray(params.filename) ? params.filename[0] : params.filename;
+    // Handle the case where the dynamic parameter might be an array.
+    const filename = Array.isArray(params.filename)
+      ? params.filename[0]
+      : params.filename;
+      
     const filePath = path.join(process.cwd(), 'public', 'case-studies', filename);
     
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: 'File not found' }, { status: 404 });
     }
-
+    
     const fileBuffer = fs.readFileSync(filePath);
     
     return new NextResponse(fileBuffer, {
