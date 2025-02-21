@@ -1,19 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-// Import the Params type from Next.js' internal shared types.
-// import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import type { NextApiRequest, NextApiResponse } from 'next'; // Import Next.js API types
-
-// Define a generic route context which matches Next.js expectations.
-type RouteContext = {
-  params: Params;
-};
-
-// Define your own Params type
-type Params = {
-  filename: string | string[]; // Define the expected parameter
-};
 
 export async function GET(
   request: NextRequest,
