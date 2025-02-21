@@ -1,4 +1,3 @@
-// src/app/projects/page.js
 import React from 'react';
 
 export default async function ProjectsPage() {
@@ -11,7 +10,6 @@ export default async function ProjectsPage() {
     repositories = await res.json();
   } catch (error) {
     console.error("Error fetching repositories:", error);
-    // Handle the error gracefully
     repositories = []; // Fallback to an empty array
   }
 
