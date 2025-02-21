@@ -4,10 +4,11 @@ import path from 'path';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string } }
+  { params }: { params: { filename: string | string[] } }
 ) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
+    const filename = Array.isArray(params.filename) ? params.filename[0] : params.filename;
+    const filePath = path.join(process.cwd(), 'public', 'case-studies', filename);
     
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: 'File not found' }, { status: 404 });
@@ -18,7 +19,7 @@ export async function GET(
     return new NextResponse(fileBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename="${encodeURIComponent(params.filename)}"`
+        'Content-Disposition': `inline; filename="${encodeURIComponent(filename)}"`
       }
     });
   } catch {
