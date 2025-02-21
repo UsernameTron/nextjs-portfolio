@@ -6,14 +6,13 @@ export default async function ProjectsPage() {
   try {
     const res = await fetch(process.env.NEXT_PUBLIC_REPO_API_URL);
     if (!res.ok) {
-      console.error("Failed to fetch repositories. Status:", res.status);
-      repositories = [];
-    } else {
-      repositories = await res.json();
+      throw new Error(`HTTP error! status: ${res.status}`);
     }
+    repositories = await res.json();
   } catch (error) {
     console.error("Error fetching repositories:", error);
-    repositories = [];
+    // Handle the error gracefully
+    repositories = []; // Fallback to an empty array
   }
 
   return (
