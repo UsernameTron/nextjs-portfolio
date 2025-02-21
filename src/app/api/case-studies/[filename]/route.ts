@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+// Import the Params type from Next.js' internal shared types.
+import type { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 
 // Define a generic route context which matches Next.js expectations.
 type RouteContext = {
@@ -9,10 +11,10 @@ type RouteContext = {
 
 export async function GET(
   request: NextRequest,
-  { params }: RouteContext
+  { params }: { params: Params } // Now uses Next.js's built-in Params type.
 ) {
   try {
-    // Handle the case where the dynamic parameter might be an array.
+    // If the dynamic parameter may be an array, extract the first element.
     const filename = Array.isArray(params.filename)
       ? params.filename[0]
       : params.filename;
