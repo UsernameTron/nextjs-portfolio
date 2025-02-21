@@ -5,10 +5,10 @@ import path from 'path';
 
 export async function GET(
   request: NextRequest,
-  context: { params: { filename: string } }
+  { params }: { params: { filename: string } }  // Note the destructuring here
 ) {
   try {
-    const sanitizedFilename = context.params.filename;
+    const sanitizedFilename = params.filename;  // Changed from context.params to params
     
     // Whitelist of allowed case study PDFs
     const allowedFiles = [
