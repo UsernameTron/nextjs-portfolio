@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 export async function GET(
-  request: Request,
+  _: Request,
   { params }: { params: { filename: string } }
 ) {
   const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
