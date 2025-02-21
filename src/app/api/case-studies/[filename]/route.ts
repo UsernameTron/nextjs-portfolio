@@ -16,7 +16,7 @@ export async function GET(
         'Content-Disposition': `inline; filename=${params.filename}`
       }
     });
-  } catch (error) {
-    return new NextResponse('PDF not found', { status: 404 });
+  } catch (err) {
+    return NextResponse.json({ error: 'Failed to read file' }, { status: 500 });
   }
 } 
