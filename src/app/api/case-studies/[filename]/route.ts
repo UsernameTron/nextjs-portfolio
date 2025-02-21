@@ -3,13 +3,13 @@ import fs from 'fs';
 import path from 'path';
 
 export async function GET(
-  _: Request,
+  req: Request,
   { params }: { params: { filename: string } }
 ) {
-  const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
-  
   try {
+    const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
     const fileBuffer = fs.readFileSync(filePath);
+    
     return new NextResponse(fileBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
