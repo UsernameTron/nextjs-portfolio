@@ -3,18 +3,13 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-type RouteParams = {
-  params: {
-    filename: string;
-  };
-};
-
+// The Next.js expected pattern for dynamic route parameters
 export async function GET(
   request: NextRequest,
-  context: RouteParams
+  { params }: { params: { filename: string } }
 ) {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'case-studies', context.params.filename);
+    const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
     
     if (!fs.existsSync(filePath)) {
       return NextResponse.json({ error: 'File not found' }, { status: 404 });
@@ -25,7 +20,7 @@ export async function GET(
     return new NextResponse(fileBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
-        'Content-Disposition': `inline; filename=${encodeURIComponent(context.params.filename)}`
+        'Content-Disposition': `inline; filename=${encodeURIComponent(params.filename)}`
       }
     });
   } catch (error) {
