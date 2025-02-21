@@ -32,4 +32,4 @@ export async function GET(
     console.error('Error serving file:', error);
     return NextResponse.json({ error: 'Failed to read file' }, { status: 500 });
   }
-} 
+}
