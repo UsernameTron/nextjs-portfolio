@@ -3,10 +3,12 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 
-// The Next.js expected pattern for dynamic route parameters
+// This is how Next.js 13+ App Router expects the params to be typed
+type Params = { filename: string }
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { filename: string } }
+  { params }: { params: Params }
 ) {
   try {
     const filePath = path.join(process.cwd(), 'public', 'case-studies', params.filename);
