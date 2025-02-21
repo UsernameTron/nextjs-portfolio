@@ -12,15 +12,15 @@ type RouteContext = {
 
 // Define your own Params type
 type Params = {
-  filename: string; // Define the expected parameter
+  filename: string | string[]; // Define the expected parameter
 };
 
 export async function GET(
-  request: NextApiRequest, // Use NextApiRequest
-  { params }: { params: Params } // Use the custom Params type
+  request: NextRequest,
+  { params }: { params: { filename: string | string[] } }
 ) {
   try {
-    // If the dynamic parameter may be an array, extract the first element.
+    // Ensure we have a single string value for filename.
     const filename = Array.isArray(params.filename)
       ? params.filename[0]
       : params.filename;
