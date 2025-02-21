@@ -16,7 +16,7 @@ export async function GET(
         'Content-Disposition': `inline; filename=${params.filename}`
       }
     });
-  } catch (err) {
+  } catch (_err) {
     return NextResponse.json({ error: 'Failed to read file' }, { status: 500 });
   }
 } 
